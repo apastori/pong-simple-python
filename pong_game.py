@@ -93,13 +93,15 @@ def pong_game() -> None:
             paddle_right_y = 0
         #Paddle Collisions with Ball
         ## Right Paddle
-        if (ball_x >= paddle_right_x) and (ball_x <= paddle_right_x + paddle_width):
-            if (ball_y >= paddle_right_y) and (ball_y <= paddle_right_y + paddle_height):
+        paddle_r_collision_x: bool = (ball_x >= paddle_right_x) and (ball_x <= paddle_right_x + paddle_width)
+        paddle_r_collision_y: bool = (ball_y >= paddle_right_y) and (ball_y <= paddle_right_y + paddle_height)
+        if paddle_r_collision_x and paddle_r_collision_y:
                 ball_x = paddle_right_x
                 vel_x = vel_x * -1
         # Left Paddle
-        if (ball_x >= paddle_left_x) and (ball_x <= paddle_left_x + paddle_width):
-            if (ball_y >= paddle_left_y) and (ball_y <= paddle_left_y + paddle_height):
+        paddle_l_collision_x: bool = (ball_x >= paddle_left_x) and (ball_x <= paddle_left_x + paddle_width)
+        paddle_l_collision_y: bool = (ball_y >= paddle_left_y) and (ball_y <= paddle_left_y + paddle_height)
+        if paddle_l_collision_x and paddle_l_collision_y:
                 ball_x = paddle_left_x + paddle_width
                 vel_x = vel_x * -1
         # Movements
