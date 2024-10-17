@@ -90,6 +90,17 @@ def pong_game() -> None:
         ## Paddle Right Up Bounds
         if paddle_y1 <= 0:
             paddle_y1 = 0
+        #Paddle Collisions with Ball
+        ## Left Paddle
+        if (ball_x >= paddle_x1) and (ball_x <= paddle_x1 + paddle_width):
+            if (ball_y >= paddle_y) and (ball_y <= paddle_y + paddle_height):
+                ball_x = paddle_x1
+                vel_x = vel_x * -1
+        ## Right Paddle
+        # if (ball_x >= paddle_x) and (ball_x <= paddle_x + paddle_width):
+        #     if (ball_y >= paddle_y1) and (ball_y <= paddle_y1 + paddle_height):
+        #         ball_x = paddle_x + paddle_width
+        #         vel_x = vel_x * -1
         # Movements
         ## Movement Ball
         ball_x = ball_x + vel_x
