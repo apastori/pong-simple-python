@@ -33,10 +33,10 @@ def pong_game() -> None:
     paddle_x: float = 100 - paddle_width / 2
     paddle_x1: float = width - (100 - paddle_width / 2)
     paddle_vel: float = 0
-    paddle_vel1: float = paddle_vel
+    paddle_vel1: float = 0
     #Test Print
-    print(paddle_x, paddle_x1)
-    print(paddle_y, paddle_y1)
+    print(paddle_x, paddle_y)
+    print(paddle_x1, paddle_y1)
     # Game
     while run:
         # Black Screen to Show different Tempos Game
@@ -58,7 +58,7 @@ def pong_game() -> None:
                 # Right Paddle Goes Up with "S" key
                 if i.key == pygame.K_s:
                     paddle_vel1 = 0.7
-            if i.type == pygame.KEYUP:
+            elif i.type == pygame.KEYUP:
                 paddle_vel = 0
                 paddle_vel1 = 0        
         # Bounce Ball Y Axis Out Bounds
@@ -67,10 +67,11 @@ def pong_game() -> None:
         # Reset Serve Game X Axis Out Bounds Right
         if ball_x >= (width - radius):
             ball_x = width / 2 - radius
-            ball_y= height / 2 - radius
-            vel_x = 0.5 
-            vel_y = 0.5
+            ball_y = height / 2 - radius
+            #vel_x = 0.5 
+            #vel_y = 0.5
             vel_x = vel_x * -1
+            vel_y = vel_y * -1
         # Reset Serve Game X Axis Out Bounds Left
         if ball_x <= (0 + radius):
             ball_x = width / 2 - radius
@@ -96,27 +97,28 @@ def pong_game() -> None:
             if (ball_y >= paddle_y) and (ball_y <= paddle_y + paddle_height):
                 ball_x = paddle_x1
                 vel_x = vel_x * -1
-        ## Right Paddle
-        # if (ball_x >= paddle_x) and (ball_x <= paddle_x + paddle_width):
-        #     if (ball_y >= paddle_y1) and (ball_y <= paddle_y1 + paddle_height):
-        #         ball_x = paddle_x + paddle_width
-        #         vel_x = vel_x * -1
+        # Right Paddle
+        if (ball_x >= paddle_x) and (ball_x <= paddle_x + paddle_width):
+            if (ball_y >= paddle_y1) and (ball_y <= paddle_y1 + paddle_height):
+                ball_x = paddle_x + paddle_width
+                vel_x = vel_x * -1
         # Movements
-        ## Movement Ball
-        ball_x = ball_x + vel_x
-        ball_y = ball_y + vel_y
         ## Movement Paddle
         ### Left Paddle
         paddle_y = paddle_y + paddle_vel
         ### Right Paddle
         paddle_y1 = paddle_y1 + paddle_vel1
+        ## Movement Ball
+        ball_x = ball_x + vel_x
+        ball_y = ball_y + vel_y
+        ball_coord = (ball_x, ball_y)
         # Pong Objects
         ## Ball
         pygame.draw.circle(new_display, blue, ball_coord, radius)
         ## Left Paddle
-        pygame.draw.rect(new_display, red, pygame.Rect(paddle_x, paddle_y, paddle_width, paddle_height))
+        pygame.draw.rect(new_display, red, pygame.Rect(paddle_x, paddle_y1, paddle_width, paddle_height))
         ## Right Paddle
-        pygame.draw.rect(new_display, red, pygame.Rect(paddle_x1, paddle_y1, paddle_width, paddle_height))
+        pygame.draw.rect(new_display, red, pygame.Rect(paddle_x1, paddle_y, paddle_width, paddle_height))
         # Pong Update Game
         pygame.display.update()
     
