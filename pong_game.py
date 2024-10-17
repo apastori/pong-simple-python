@@ -1,5 +1,6 @@
-from typing import Tuple
+from typing import Tuple, List
 import pygame
+import random
 from pygame.surface import Surface
 from ColorValue import ColorValue
 
@@ -9,6 +10,10 @@ def pong_game() -> None:
     # Display Values
     width: int = 1000
     height: int = 600
+    # Direction 0 Top 1 Bottom
+    direction: Tuple[int, int] = (0, 1)
+    # Angle 0 Top 1 Middle 2 Bottom
+    angle: Tuple[int, int, int] = (0, 1, 2)
     display_size: Tuple[int, int] = (width, height)
     new_display: Surface = pygame.display.set_mode(display_size)
     pygame.display.set_caption("Pong Game")
@@ -23,8 +28,8 @@ def pong_game() -> None:
     ball_x: float = width / 2 - radius
     ball_y: float = height / 2 - radius
     ball_coord: Tuple[float, float] = (ball_x, ball_y)
-    vel_x: float = 0.5
-    vel_y: float = 0.5
+    vel_x: float = 0.7
+    vel_y: float = 0.7
     # Paddles
     paddle_width: int = 20
     paddle_height: int = 120
@@ -34,6 +39,9 @@ def pong_game() -> None:
     paddle_right_x: float = width - (100 - paddle_width / 2)
     paddle_left_vel: float = 0
     paddle_right_vel: float = 0
+    # Gadgets
+    left_gadget: int = 0
+    right: int = 0
     #Test Print
     print("Left Paddle", paddle_left_x, paddle_left_y)
     print("Right Paddle", paddle_right_x, paddle_right_y)
@@ -68,16 +76,55 @@ def pong_game() -> None:
         if ball_x >= (width - radius):
             ball_x = width / 2 - radius
             ball_y = height / 2 - radius
-            vel_x = 0.5 
-            vel_y = 0.5
+            dir: int = random.choice(direction)
+            ang: int = random.choice(angle)
+            if dir == 0:
+                if ang == 0:
+                    vel_y = -1.4
+                    vel_x = 0.7
+                if ang == 1:
+                    vel_y = -0.7
+                    vel_x = 0.7
+                if ang == 2:
+                    vel_y = -0.7
+                    vel_x = 1.4
+            if dir == 1:
+                if ang == 0:
+                    vel_y = 1.4
+                    vel_x = 0.7
+                if ang == 1:
+                    vel_y = 0.7
+                    vel_x = 0.7
+                if ang == 2:
+                    vel_y = 0.7
+                    vel_x = 1.4  
             vel_x = vel_x * -1
-            vel_y = vel_y * -1
         # Reset Serve Game X Axis Out Bounds Left
         if ball_x <= (0 + radius):
             ball_x = width / 2 - radius
             ball_y= height / 2 - radius
-            vel_x = 0.5 
-            vel_y = 0.5
+            dir: int = random.choice(direction)
+            ang: int = random.choice(angle)
+            if dir == 0:
+                if ang == 0:
+                    vel_y = -1.4
+                    vel_x = 0.7
+                if ang == 1:
+                    vel_y = -0.7
+                    vel_x = 0.7
+                if ang == 2:
+                    vel_y = -0.7
+                    vel_x = 1.4
+            if dir == 1:
+                if ang == 0:
+                    vel_y = 1.4
+                    vel_x = 0.7
+                if ang == 1:
+                    vel_y = 0.7
+                    vel_x = 0.7
+                if ang == 2:
+                    vel_y = 0.7
+                    vel_x = 1.4
         # Paddle Movements Out Bounds Controls
         ## Paddle Left Down Bounds
         if paddle_left_y >= height - paddle_height:
