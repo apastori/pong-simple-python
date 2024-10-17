@@ -28,15 +28,15 @@ def pong_game() -> None:
     # Paddles
     paddle_width: int = 20
     paddle_height: int = 120
-    paddle_y: float = height / 2 - paddle_height / 2
-    paddle_y1: float = paddle_y
-    paddle_x: float = 100 - paddle_width / 2
-    paddle_x1: float = width - (100 - paddle_width / 2)
-    paddle_vel: float = 0
-    paddle_vel1: float = 0
+    paddle_left_y: float = height / 2 - paddle_height / 2
+    paddle_right_y: float = paddle_left_y
+    paddle_left_x: float = 100 - paddle_width / 2
+    paddle_right_x: float = width - (100 - paddle_width / 2)
+    paddle_left_vel: float = 0
+    paddle_right_vel: float = 0
     #Test Print
-    print("Left Paddle", paddle_x, paddle_y)
-    print("Right Paddle", paddle_x1, paddle_y1)
+    print("Left Paddle", paddle_left_x, paddle_left_y)
+    print("Right Paddle", paddle_right_x, paddle_right_y)
     # Game
     while run:
         # Black Screen to Show different Tempos Game
@@ -48,19 +48,19 @@ def pong_game() -> None:
             if i.type == pygame.KEYDOWN:
                 # Right Paddle Goes Up with Up Arrow Key
                 if i.key == pygame.K_UP:
-                    paddle_vel = -0.7
+                    paddle_right_vel = -0.7
                 # Right Paddle Goes Down Arrow Key
                 if i.key == pygame.K_DOWN:
-                    paddle_vel = 0.7
+                    paddle_right_vel = 0.7
                 # Left Paddle Goes Up with "W" key
                 if i.key == pygame.K_w:
-                    paddle_vel1 = -0.7
+                    paddle_left_vel = -0.7
                 # Left Paddle Goes Up with "S" key
                 if i.key == pygame.K_s:
-                    paddle_vel1 = 0.7
+                   paddle_left_vel = 0.7
             if i.type == pygame.KEYUP:
-                paddle_vel = 0
-                paddle_vel1 = 0        
+                paddle_right_vel = 0
+                paddle_left_vel = 0        
         # Bounce Ball Y Axis Out Bounds
         if (ball_y <= 0 + radius) or (ball_y >= height - radius):
             vel_y = vel_y * -1
@@ -80,34 +80,34 @@ def pong_game() -> None:
             vel_y = 0.5
         # Paddle Movements Out Bounds Controls
         ## Paddle Left Down Bounds
-        if paddle_y >= height - paddle_height:
-            paddle_y = height - paddle_height
+        if paddle_left_y >= height - paddle_height:
+            paddle_left_y = height - paddle_height
         ## Paddle Left Up Bounds
-        if paddle_y <= 0:
-            paddle_y = 0
+        if paddle_left_y <= 0:
+            paddle_left_y = 0
         ## Paddle Right Down Bounds
-        if paddle_y1 >= height - paddle_height:
-            paddle_y1 = height - paddle_height
+        if paddle_right_y >= height - paddle_height:
+            paddle_right_y = height - paddle_height
         ## Paddle Right Up Bounds
-        if paddle_y1 <= 0:
-            paddle_y1 = 0
+        if paddle_right_y <= 0:
+            paddle_right_y = 0
         #Paddle Collisions with Ball
-        ## Left Paddle
-        if (ball_x >= paddle_x1) and (ball_x <= paddle_x1 + paddle_width):
-            if (ball_y >= paddle_y) and (ball_y <= paddle_y + paddle_height):
-                ball_x = paddle_x1
+        ## Right Paddle
+        if (ball_x >= paddle_right_x) and (ball_x <= paddle_right_x + paddle_width):
+            if (ball_y >= paddle_right_y) and (ball_y <= paddle_right_y + paddle_height):
+                ball_x = paddle_right_x
                 vel_x = vel_x * -1
-        # Right Paddle
-        if (ball_x >= paddle_x) and (ball_x <= paddle_x + paddle_width):
-            if (ball_y >= paddle_y1) and (ball_y <= paddle_y1 + paddle_height):
-                ball_x = paddle_x + paddle_width
+        # Left Paddle
+        if (ball_x >= paddle_left_x) and (ball_x <= paddle_left_x + paddle_width):
+            if (ball_y >= paddle_left_y) and (ball_y <= paddle_left_y + paddle_height):
+                ball_x = paddle_left_x + paddle_width
                 vel_x = vel_x * -1
         # Movements
         ## Movement Paddle
         ### Left Paddle
-        paddle_y = paddle_y + paddle_vel
+        paddle_left_y = paddle_left_y + paddle_left_vel
         ### Right Paddle
-        paddle_y1 = paddle_y1 + paddle_vel1
+        paddle_right_y = paddle_right_y + paddle_right_vel
         ## Movement Ball
         ball_x = ball_x + vel_x
         ball_y = ball_y + vel_y
@@ -116,9 +116,9 @@ def pong_game() -> None:
         ## Ball
         pygame.draw.circle(new_display, blue, ball_coord, radius)
         ## Left Paddle
-        pygame.draw.rect(new_display, red, pygame.Rect(paddle_x, paddle_y1, paddle_width, paddle_height))
+        pygame.draw.rect(new_display, red, pygame.Rect(paddle_left_x, paddle_left_y, paddle_width, paddle_height))
         ## Right Paddle
-        pygame.draw.rect(new_display, red, pygame.Rect(paddle_x1, paddle_y, paddle_width, paddle_height))
+        pygame.draw.rect(new_display, red, pygame.Rect(paddle_right_x, paddle_right_y, paddle_width, paddle_height))
         # Pong Update Game
         pygame.display.update()
     
