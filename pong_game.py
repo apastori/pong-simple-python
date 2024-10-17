@@ -35,8 +35,8 @@ def pong_game() -> None:
     paddle_vel: float = 0
     paddle_vel1: float = 0
     #Test Print
-    print(paddle_x, paddle_y)
-    print(paddle_x1, paddle_y1)
+    print("Left Paddle", paddle_x, paddle_y)
+    print("Right Paddle", paddle_x1, paddle_y1)
     # Game
     while run:
         # Black Screen to Show different Tempos Game
@@ -46,19 +46,19 @@ def pong_game() -> None:
                 run = False
                 continue
             if i.type == pygame.KEYDOWN:
-                # Left Paddle Goes Up with Up Arrow Key
+                # Right Paddle Goes Up with Up Arrow Key
                 if i.key == pygame.K_UP:
                     paddle_vel = -0.7
-                # Left Paddle Goes Down Arrow Key
+                # Right Paddle Goes Down Arrow Key
                 if i.key == pygame.K_DOWN:
                     paddle_vel = 0.7
-                # Right Paddle Goes Up with "W" key
+                # Left Paddle Goes Up with "W" key
                 if i.key == pygame.K_w:
                     paddle_vel1 = -0.7
-                # Right Paddle Goes Up with "S" key
+                # Left Paddle Goes Up with "S" key
                 if i.key == pygame.K_s:
                     paddle_vel1 = 0.7
-            elif i.type == pygame.KEYUP:
+            if i.type == pygame.KEYUP:
                 paddle_vel = 0
                 paddle_vel1 = 0        
         # Bounce Ball Y Axis Out Bounds
@@ -68,8 +68,8 @@ def pong_game() -> None:
         if ball_x >= (width - radius):
             ball_x = width / 2 - radius
             ball_y = height / 2 - radius
-            #vel_x = 0.5 
-            #vel_y = 0.5
+            vel_x = 0.5 
+            vel_y = 0.5
             vel_x = vel_x * -1
             vel_y = vel_y * -1
         # Reset Serve Game X Axis Out Bounds Left
