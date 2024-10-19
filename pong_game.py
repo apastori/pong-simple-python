@@ -28,8 +28,8 @@ def pong_game() -> None:
     ball_x: float = width / 2 - radius
     ball_y: float = height / 2 - radius
     ball_coord: Tuple[float, float] = (ball_x, ball_y)
-    vel_x: float = 0.7
-    vel_y: float = 0.7
+    vel_x: float = 0.4
+    vel_y: float = 0.4
     # Paddles
     paddle_width: int = 20
     paddle_height: int = 120
@@ -56,16 +56,16 @@ def pong_game() -> None:
             if i.type == pygame.KEYDOWN:
                 # Right Paddle Goes Up with Up Arrow Key
                 if i.key == pygame.K_UP:
-                    paddle_right_vel = -0.7
+                    paddle_right_vel = -0.4
                 # Right Paddle Goes Down Arrow Key
                 if i.key == pygame.K_DOWN:
-                    paddle_right_vel = 0.7
+                    paddle_right_vel = 0.4
                 # Left Paddle Goes Up with "W" key
                 if i.key == pygame.K_w:
-                    paddle_left_vel = -0.7
+                    paddle_left_vel = -0.4
                 # Left Paddle Goes Up with "S" key
                 if i.key == pygame.K_s:
-                   paddle_left_vel = 0.7
+                   paddle_left_vel = 0.4
             if i.type == pygame.KEYUP:
                 paddle_right_vel = 0
                 paddle_left_vel = 0        
@@ -80,24 +80,24 @@ def pong_game() -> None:
             ang: int = random.choice(angle)
             if dir == 0:
                 if ang == 0:
-                    vel_y = -1.4
-                    vel_x = 0.7
+                    vel_y = -0.8
+                    vel_x = 0.4
                 if ang == 1:
-                    vel_y = -0.7
-                    vel_x = 0.7
+                    vel_y = -0.4
+                    vel_x = 0.4
                 if ang == 2:
-                    vel_y = -0.7
-                    vel_x = 1.4
+                    vel_y = -0.4
+                    vel_x = 0.8
             if dir == 1:
                 if ang == 0:
-                    vel_y = 1.4
-                    vel_x = 0.7
+                    vel_y = 0.8
+                    vel_x = 0.4
                 if ang == 1:
-                    vel_y = 0.7
-                    vel_x = 0.7
+                    vel_y = 0.4
+                    vel_x = 0.4
                 if ang == 2:
-                    vel_y = 0.7
-                    vel_x = 1.4  
+                    vel_y = 0.4
+                    vel_x = 0.8  
             vel_x = vel_x * -1
         # Reset Serve Game X Axis Out Bounds Left
         if ball_x <= (0 + radius):
@@ -107,24 +107,24 @@ def pong_game() -> None:
             ang: int = random.choice(angle)
             if dir == 0:
                 if ang == 0:
-                    vel_y = -1.4
-                    vel_x = 0.7
+                    vel_y = -0.8
+                    vel_x = 0.4
                 if ang == 1:
-                    vel_y = -0.7
-                    vel_x = 0.7
+                    vel_y = -0.4
+                    vel_x = 0.4
                 if ang == 2:
-                    vel_y = -0.7
-                    vel_x = 1.4
+                    vel_y = -0.4
+                    vel_x = 0.8
             if dir == 1:
                 if ang == 0:
-                    vel_y = 1.4
-                    vel_x = 0.7
+                    vel_y = 0.8
+                    vel_x = 0.4
                 if ang == 1:
-                    vel_y = 0.7
-                    vel_x = 0.7
+                    vel_y = 0.4
+                    vel_x = 0.4
                 if ang == 2:
-                    vel_y = 0.7
-                    vel_x = 1.4
+                    vel_y = 0.4
+                    vel_x = 0.8
         # Paddle Movements Out Bounds Controls
         ## Paddle Left Down Bounds
         if paddle_left_y >= height - paddle_height:
